@@ -7,10 +7,9 @@ import SignIn from './pages/SingIn'
 import Footer from './components/Footer'
 import Profile from './pages/Profile'
 import Error from './pages/Error'
-//import authContext from './contexts/authContext'
 import AuthContext from './contexts/authContext'
-import { isAuthenticatedFun } from './services/authAPI'
-//import PrivateRoute from './components/PrivateRoute'
+import authAPI from './services/authAPI'
+import PrivateRoute from './components/PrivateRoute'
 
 /**
  *
@@ -18,7 +17,9 @@ import { isAuthenticatedFun } from './services/authAPI'
  */
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticatedFun)
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    authAPI.isAuthenticated
+  )
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
@@ -28,8 +29,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
-            <Route path="/Profile" element={<Profile />} />
-            {/*<PrivateRoute path="/Profile" element={<Profile />} />*/}
+            <Route path="/Profile" element={<PrivateRoute />}>
+              <Route path="/Profile" element={<Profile />} />
+            </Route>
+
             <Route path="*" element={<Error />} />
           </Routes>
         </section>

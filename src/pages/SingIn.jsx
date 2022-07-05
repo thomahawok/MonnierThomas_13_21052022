@@ -1,11 +1,10 @@
 //@ts-check
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { useContext, useState } from 'react'
-import { authenticate } from '../services/authAPI'
+import authAPI from '../services/authAPI'
 import AuthContext from '../contexts/authContext'
-import { useNavigate } from 'react-router-dom'
 
 /**
  * Component - SingIn
@@ -13,32 +12,29 @@ import { useNavigate } from 'react-router-dom'
  */
 
 function SingIn() {
-  const history = useNavigate()
-  const [singInUser, setSignInUser] = useState({
+  let navigate = useNavigate()
+
+  const [credientials, setCredientials] = useState({
     email: '',
     password: '',
   })
   const { setIsAuthenticated } = useContext(AuthContext)
-  console.log({ setIsAuthenticated })
-  console.log(AuthContext)
 
   function handelChange({ currentTarget }) {
     const { value, name } = currentTarget
-
-    setSignInUser({
-      ...singInUser,
+    setCredientials({
+      ...credientials,
       [name]: value,
     })
   }
 
-  function handelSubmit(e) {
+  async function handelSubmit(e) {
     e.preventDefault()
     try {
-      authenticate(singInUser)
+      await authAPI.authenticated(credientials)
       setIsAuthenticated(true)
-      //history('../Profile', { replace: true })
-      console.log(history)
-      console.log(setIsAuthenticated)
+      //<Navigate to="/login" />
+      navigate('../Profile', { replace: true })
     } catch (error) {
       console.log(error)
     }

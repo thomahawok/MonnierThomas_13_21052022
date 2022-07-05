@@ -1,17 +1,12 @@
 import { useContext } from 'react'
 import AuthContext from '../contexts/authContext'
-import { useNavigate, Route } from 'react-router-dom'
-import { isAuthenticatedFun } from '../services/authAPI'
-
-function PrivateRoute(path, component) {
-  const { IsAuthenticated } = useContext(AuthContext)
-  const { location } = useNavigate()
-  if (isAuthenticatedFun) {
-    return <Route path={path} component={component} />
-  } else if (!IsAuthenticated && location.pathname == '/signIn') {
-    //return <Redirect to="/" />
-  } else {
-    //return <Redirect to="/" />
-  }
+import { Navigate, Outlet } from 'react-router-dom'
+//import authAPI from '../services/authAPI'
+/**
+ * @returns {React.ReactElement} JSX.Element - the user main page with API data
+ */
+function PrivateRoute() {
+  const { isAuthenticated } = useContext(AuthContext)
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" />
 }
 export default PrivateRoute
