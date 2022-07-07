@@ -1,9 +1,10 @@
 //@ts-check
 
-import { Link, useNavigate, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { useContext, useState } from 'react'
-import authAPI from '../services/authAPI'
+//import authAPI from '../services/authAPI'
+import { login } from '../services/authAPI'
 import AuthContext from '../contexts/authContext'
 
 /**
@@ -13,7 +14,6 @@ import AuthContext from '../contexts/authContext'
 
 function SingIn() {
   let navigate = useNavigate()
-
   const [credientials, setCredientials] = useState({
     email: '',
     password: '',
@@ -28,16 +28,16 @@ function SingIn() {
     })
   }
 
-  async function handelSubmit(e) {
+  function handelSubmit(e) {
     e.preventDefault()
-    try {
-      await authAPI.authenticated(credientials)
-      setIsAuthenticated(true)
-      //<Navigate to="/login" />
-      navigate('../Profile', { replace: true })
-    } catch (error) {
-      console.log(error)
-    }
+    login(credientials).then((data) => {
+      if (data) {
+        setIsAuthenticated(true)
+        navigate('/Profile')
+      } else {
+        setIsAuthenticated(false)
+      }
+    })
   }
 
   return (

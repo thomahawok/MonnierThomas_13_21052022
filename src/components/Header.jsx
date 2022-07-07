@@ -11,7 +11,7 @@ import { ClearLocalStorage } from '../components/ClearLocalStorage'
 
 function Header() {
   const { isAuthenticated } = useContext(AuthContext)
-  console.log(isAuthenticated)
+  //console.log(isAuthenticated)
   return (
     <header>
       <nav className="main-nav">

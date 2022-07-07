@@ -1,17 +1,20 @@
 //@ts-check
+import { GetDatas, userDatas } from '../services/userDatasAPI'
 /**
  * Component - User
  * @returns {React.ReactElement} JSX.Element - User component
  */
 
 function Profile() {
+  const { userData } = GetDatas()
+
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {userData.firstName} {userData.lastName}
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>

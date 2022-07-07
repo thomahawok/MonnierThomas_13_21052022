@@ -10,27 +10,33 @@ import jwtDecode from 'jwt-decode'
  * @throws {Error} - If the user is not found or the password is incorrect
  */
 
-function authenticated(credientials) {
-  return axios
-    .post(URL_LOGIN, credientials)
-    .then((res) => res.data)
-    .then((data) => {
-      window.localStorage.setItem('authToken', data.body.token)
-      //window.localStorage.setItem('username', data.useur.useurname)
-      //axios.defaults.headers.common['Authorization'] =  'Bearer ' + data.data.body.token
-      //console.log(singInUser)
-      console.log(data)
-      console.log(axios.defaults.headers)
-      console.log(isAuthenticated())
-    })
+export async function login(credientials) {
+  try {
+    const response = await axios.post(URL_LOGIN, credientials)
+    axios.defaults.headers.common['Authorization'] =
+      'Bearer ' + response.data.body.token
+    const { token } = response.data.body
+    localStorage.setItem('authToken', token)
+
+    console.log(response)
+    console.log(axios.defaults.headers.common)
+
+    if (isAuthenticated()) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 function isAuthenticated() {
   const token = window.localStorage.getItem('authToken')
-  console.log(token)
+  //console.log(token)
   if (token) {
     const { exp } = jwtDecode(token)
-    console.log(exp)
+    //console.log(exp)
 
     if (exp * 1000 > new Date().getTime()) {
       return true
@@ -40,7 +46,6 @@ function isAuthenticated() {
 }
 
 const authAPI = {
-  authenticated,
   isAuthenticated,
 }
 export default authAPI
