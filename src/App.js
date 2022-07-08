@@ -10,6 +10,8 @@ import Error from './pages/Error'
 import AuthContext from './contexts/authContext'
 import authAPI from './services/authAPI'
 import PrivateRoute from './components/PrivateRoute'
+import { Provider } from 'react-redux'
+import { store } from './redux'
 
 /**
  *
@@ -23,21 +25,22 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
-      <Router>
-        <Header />
-        <section className="elementsToDisplay">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path="/Profile" element={<PrivateRoute />}>
-              <Route path="/Profile" element={<Profile />} />
-            </Route>
-
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </section>
-        <Footer />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Header />
+          <section className="elementsToDisplay">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signIn" element={<SignIn />} />
+              <Route path="/Profile" element={<PrivateRoute />}>
+                <Route path="/Profile" element={<Profile />} />
+              </Route>
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </section>
+          <Footer />
+        </Router>
+      </Provider>
     </AuthContext.Provider>
   )
 }

@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import argentBankLogo from '../assets/img/argentBankLogo.png'
 import AuthContext from '../contexts/authContext'
 import { ClearLocalStorage } from '../components/ClearLocalStorage'
+import { useSelector } from 'react-redux'
 /**
  * Component - Header
  * @returns {React.ReactElement} JSX.Element - header component
  */
 
 function Header() {
-  const { isAuthenticated } = useContext(AuthContext)
+  const { isAuth } = useSelector((state) => state.login)
   //console.log(isAuthenticated)
   return (
     <header>
@@ -28,7 +29,7 @@ function Header() {
             <i className="fa fa-user-circle"></i>
             Sign In
           </Link>
-          {isAuthenticated && (
+          {isAuth && (
             <Link
               className="main-nav-item"
               onClick={() => ClearLocalStorage()}

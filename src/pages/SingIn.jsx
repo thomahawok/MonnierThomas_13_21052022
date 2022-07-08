@@ -1,11 +1,14 @@
 //@ts-check
 
 import { Link, useNavigate } from 'react-router-dom'
-import { Button } from '@material-ui/core'
+import { Button, Spinner, Alert } from 'react-bootstrap'
 import { useContext, useState } from 'react'
 //import authAPI from '../services/authAPI'
 import { login } from '../services/authAPI'
+import { userLogin } from '../services/userLogin'
 import AuthContext from '../contexts/authContext'
+import { useSelector, useDispatch } from 'react-redux'
+import { logingPending, logingSuccess, logingError } from '../redux'
 
 /**
  * Component - SingIn
@@ -13,6 +16,9 @@ import AuthContext from '../contexts/authContext'
  */
 
 function SingIn() {
+  const { isLoading, siAuth, error } = useSelector((state) => state.login)
+  const dispatch = useDispatch()
+
   let navigate = useNavigate()
   const [credientials, setCredientials] = useState({
     email: '',
@@ -28,8 +34,24 @@ function SingIn() {
     })
   }
 
-  function handelSubmit(e) {
+  async function handelSubmit(e) {
     e.preventDefault()
+    dispatch(logingPending())
+    try {
+      const isAuth = await userLogin(credientials)
+      console.log(isAuth)
+
+      if (isAuth.status === 400) {
+        return dispatch(logingError(isAuth.message))
+      }
+
+      dispatch(logingSuccess())
+      navigate('/Profile')
+    } catch (error) {
+      dispatch(logingError(error.response.data.message))
+    }
+
+    /*
     login(credientials).then((data) => {
       if (data) {
         setIsAuthenticated(true)
@@ -38,6 +60,7 @@ function SingIn() {
         setIsAuthenticated(false)
       }
     })
+    */
   }
 
   return (
@@ -46,6 +69,7 @@ function SingIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
+          {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handelSubmit}>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
@@ -74,9 +98,10 @@ function SingIn() {
               Sign In
             </Link>
             {/*<!-- SHOULD BE THE BUTTON BELOW -->*/}
-            <Button className="sign-in-button" type="submit">
-              Sign In2
+            <Button type="submit" variant="success" className="sign-in-button">
+              Button Sign In2
             </Button>
+            {isLoading && <Spinner animation="border" variant="success" />}
             {/*<!--  -->*/}
           </form>
         </section>
