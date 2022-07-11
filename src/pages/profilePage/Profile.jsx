@@ -1,15 +1,9 @@
 //@ts-check
 import React from 'react'
-import { Button, Spinner, Alert } from 'react-bootstrap'
-import { GetDatas } from '../../services/userDatasAPI'
+//import { Button, Spinner, Alert } from 'react-bootstrap'
 import { userDatas } from '../../services/userDatas'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  profilePending,
-  profileFirstName,
-  profileLastName,
-  profileError,
-} from './profileSlice'
+import { useDispatch } from 'react-redux'
+import { profileFirstName, profileLastName, profileError } from './profileSlice'
 import UserHeader from '../../components/userHeader'
 /**
  * Component - User
@@ -17,24 +11,14 @@ import UserHeader from '../../components/userHeader'
  */
 
 function Profile() {
-  //const { userData } = GetDatas()
-  //const essai = userDatas()
-  // console.log(userData)
-
-  const { isLoading, firstName, lastName, error } = useSelector(
-    (state) => state.profile
-  )
   const dispatch = useDispatch()
-  //dispatch(profilePending())
+
   userDatas()
     .then((data) => {
-      //console.log(data)
       dispatch(profileFirstName(data.body.firstName))
       dispatch(profileLastName(data.body.lastName))
     })
     .catch((error) => dispatch(profileError(error.response.data.message)))
-
-  //dispatch(profileDatas((userData.firstName, userData.lastName)))
 
   return (
     <main className="main bg-dark">

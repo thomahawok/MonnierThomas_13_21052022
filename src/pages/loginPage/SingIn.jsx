@@ -1,8 +1,6 @@
-//@ts-check
-
-import { Link, useNavigate } from 'react-router-dom'
-import { Button, Spinner, Alert } from 'react-bootstrap'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Spinner, Alert } from 'react-bootstrap'
 import { userLogin } from '../../services/userLogin'
 import { useSelector, useDispatch } from 'react-redux'
 import { logingPending, logingSuccess, logingError } from './loginSlice'
@@ -34,7 +32,6 @@ function SingIn() {
     dispatch(logingPending())
     try {
       const isAuth = await userLogin(credientials)
-      console.log(isAuth)
 
       if (isAuth.status === 400) {
         return dispatch(logingError(isAuth.message))
@@ -45,17 +42,6 @@ function SingIn() {
     } catch (error) {
       dispatch(logingError(error.response.data.message))
     }
-
-    /*
-    login(credientials).then((data) => {
-      if (data) {
-        setIsAuthenticated(true)
-        navigate('/Profile')
-      } else {
-        setIsAuthenticated(false)
-      }
-    })
-    */
   }
 
   return (
@@ -88,16 +74,10 @@ function SingIn() {
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {/*<!-- PLACEHOLDER DUE TO STATIC SITE -->*/}
-            <Link to="/Profile" className="sign-in-button">
-              Sign In
-            </Link>
-            {/*<!-- SHOULD BE THE BUTTON BELOW -->*/}
             <Button type="submit" variant="success" className="sign-in-button">
-              Button Sign In2
+              Sign In
             </Button>
             {isLoading && <Spinner animation="border" variant="success" />}
-            {/*<!--  -->*/}
           </form>
         </section>
       </main>
