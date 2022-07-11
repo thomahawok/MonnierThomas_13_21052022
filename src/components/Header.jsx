@@ -1,8 +1,7 @@
 //@ts-check
-import { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import argentBankLogo from '../assets/img/argentBankLogo.png'
-import AuthContext from '../contexts/authContext'
 import { ClearLocalStorage } from '../components/ClearLocalStorage'
 import { useSelector } from 'react-redux'
 /**
@@ -12,6 +11,9 @@ import { useSelector } from 'react-redux'
 
 function Header() {
   const { isAuth } = useSelector((state) => state.login)
+  const { isLoading, firstName, lastName, error } = useSelector(
+    (state) => state.profile
+  )
   //console.log(isAuthenticated)
   return (
     <header>
@@ -25,10 +27,17 @@ function Header() {
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-          <Link className="main-nav-item" to="/signIn">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-          </Link>
+          {isAuth ? (
+            <Link className="main-nav-link" to="/profilePage/Profile">
+              <i className="fa fa-user-circle"></i>
+              {firstName}
+            </Link>
+          ) : (
+            <Link className="main-nav-link" to="/loginPage/signIn">
+              <i className="fa fa-user-circle"></i>
+              Sign In
+            </Link>
+          )}
           {isAuth && (
             <Link
               className="main-nav-item"

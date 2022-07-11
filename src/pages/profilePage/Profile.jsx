@@ -1,23 +1,45 @@
 //@ts-check
-import { GetDatas, userDatas } from '../services/userDatasAPI'
+import React from 'react'
+import { Button, Spinner, Alert } from 'react-bootstrap'
+import { GetDatas } from '../../services/userDatasAPI'
+import { userDatas } from '../../services/userDatas'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  profilePending,
+  profileFirstName,
+  profileLastName,
+  profileError,
+} from './profileSlice'
+import UserHeader from '../../components/userHeader'
 /**
  * Component - User
  * @returns {React.ReactElement} JSX.Element - User component
  */
 
 function Profile() {
-  const { userData } = GetDatas()
+  //const { userData } = GetDatas()
+  //const essai = userDatas()
+  // console.log(userData)
+
+  const { isLoading, firstName, lastName, error } = useSelector(
+    (state) => state.profile
+  )
+  const dispatch = useDispatch()
+  //dispatch(profilePending())
+  userDatas()
+    .then((data) => {
+      //console.log(data)
+      dispatch(profileFirstName(data.body.firstName))
+      dispatch(profileLastName(data.body.lastName))
+    })
+    .catch((error) => dispatch(profileError(error.response.data.message)))
+
+  //dispatch(profileDatas((userData.firstName, userData.lastName)))
 
   return (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          {userData.firstName} {userData.lastName}
-        </h1>
-        <button className="edit-button">Edit Name</button>
-      </div>
+      <UserHeader />
+
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">

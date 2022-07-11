@@ -2,13 +2,10 @@
 
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Spinner, Alert } from 'react-bootstrap'
-import { useContext, useState } from 'react'
-//import authAPI from '../services/authAPI'
-import { login } from '../services/authAPI'
-import { userLogin } from '../services/userLogin'
-import AuthContext from '../contexts/authContext'
+import React, { useState } from 'react'
+import { userLogin } from '../../services/userLogin'
 import { useSelector, useDispatch } from 'react-redux'
-import { logingPending, logingSuccess, logingError } from '../redux'
+import { logingPending, logingSuccess, logingError } from './loginSlice'
 
 /**
  * Component - SingIn
@@ -16,15 +13,13 @@ import { logingPending, logingSuccess, logingError } from '../redux'
  */
 
 function SingIn() {
-  const { isLoading, siAuth, error } = useSelector((state) => state.login)
+  const { isLoading, error } = useSelector((state) => state.login)
   const dispatch = useDispatch()
-
   let navigate = useNavigate()
   const [credientials, setCredientials] = useState({
     email: '',
     password: '',
   })
-  const { setIsAuthenticated } = useContext(AuthContext)
 
   function handelChange({ currentTarget }) {
     const { value, name } = currentTarget
@@ -46,7 +41,7 @@ function SingIn() {
       }
 
       dispatch(logingSuccess())
-      navigate('/Profile')
+      navigate('/profilePage/Profile')
     } catch (error) {
       dispatch(logingError(error.response.data.message))
     }

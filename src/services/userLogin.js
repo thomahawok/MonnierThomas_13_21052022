@@ -5,16 +5,18 @@ export async function userLogin(credientials) {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(URL_LOGIN, credientials)
+
+      console.log(res)
+      console.log(res.data.body.token)
       axios.defaults.headers.common['Authorization'] =
         'Bearer ' + res.data.body.token
-      console.log(res)
-      resolve(res.data)
       if (res.data.status === 200) {
-        sessionStorage.setItem('token', res.data.body.token)
+        window.localStorage.setItem('token', res.data.body.token)
+        //window.sessionStorage.setItem('token', res.data.body.token)
       }
+
+      resolve(res.data)
     } catch (error) {
-      console.log(error)
-      console.log(error.response.data.message)
       reject(error)
     }
   })

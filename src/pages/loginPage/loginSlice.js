@@ -1,4 +1,4 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isLoading: false,
@@ -27,12 +27,6 @@ const loginSlice = createSlice({
     },
   },
 })
-
-export const { logingPending, logingSuccess, logingError, logingOut } =
-  loginSlice.actions
-
-export const store = configureStore({
-  reducer: {
-    login: loginSlice.reducer,
-  },
-})
+const { actions, reducer } = loginSlice
+export const { logingPending, logingSuccess, logingError, logingOut } = actions
+export default reducer
