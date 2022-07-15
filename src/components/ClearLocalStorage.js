@@ -7,6 +7,8 @@ import { logingOut } from '../pages/loginPage/loginSlice'
 
 export function ClearLocalStorage() {
   const dispatch = useDispatch()
-  window.localStorage.clear()
+  localStorage.removeItem('token')
+  localStorage.removeItem('firstName')
+  localStorage.removeItem('lastName')
   dispatch(logingOut())
 }

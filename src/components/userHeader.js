@@ -1,6 +1,6 @@
 //import './UserHeader.css'
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   profilePending,
   profileFirstName,
@@ -8,20 +8,27 @@ import {
   profileError,
 } from '../pages/profilePage/profileSlice'
 import { userUpDate } from '../services/userUpDate'
-//import { updateProfile } from '../../app/actions/actions'
 
 export default function UserHeader() {
   const dispatch = useDispatch()
-
+  const localStorageFirstName = localStorage.getItem('firstName')
+  const localStorageLastName = localStorage.getItem('lastName')
+  //const { firstName, lastName } = useSelector((state) => state.profile)
   const { firstName, lastName } = useSelector((state) => state.profile)
+  useEffect(() => {
+    if (localStorageFirstName && localStorageLastName) {
+      dispatch(profileFirstName(localStorageFirstName))
+      dispatch(profileLastName(localStorageLastName))
+    }
+  }, [])
 
+  const [editButton, setEditButton] = useState('')
   const [userFirstLastName, setUserFirstLastName] = useState({
     firstName: '',
     lastName: '',
   })
 
   function handelChange({ currentTarget }) {
-    console.log(currentTarget)
     const { value, name } = currentTarget
     setUserFirstLastName({
       ...userFirstLastName,
@@ -29,9 +36,7 @@ export default function UserHeader() {
     })
   }
 
-  const [editButton, setEditButton] = useState('')
-
-  const editNameButton = (e) => {
+  function editNameButton(e) {
     e.preventDefault()
     setEditButton((current) => !current)
   }
@@ -42,13 +47,12 @@ export default function UserHeader() {
     try {
       const newUser = await userUpDate(userFirstLastName)
       console.log(newUser)
-      //if (newUser.status === 400) {
-      //return dispatch(logingError(isAuth.message))
-      // }
+      if (newUser.status === 400 || newUser.status === 500) {
+        return dispatch(profileError(newUser.message))
+      }
       dispatch(profileFirstName(newUser.body.firstName))
       dispatch(profileLastName(newUser.body.lastName))
       setEditButton((current) => !current)
-      //navigate('/profilePage/Profile')
     } catch (error) {
       dispatch(profileError(error.response.data.message))
     }
@@ -71,30 +75,26 @@ export default function UserHeader() {
         <div className="header">
           <h1>Welcome back</h1>
           <form className="editNameContent" onSubmit={submitHandler}>
-            <div className="editNameInputs">
-              <input
-                type="text"
-                placeholder={firstName}
-                name="firstName"
-                onChange={handelChange}
-                required
-              />
-              <input
-                type="text"
-                placeholder={lastName}
-                name="lastName"
-                onChange={handelChange}
-                required
-              />
-            </div>
-            <div className="editNameButtons">
-              <button className="edit-button" type="submit">
-                Save
-              </button>
-              <button className="edit-button" onClick={editNameButton}>
-                Cancel
-              </button>
-            </div>
+            <input
+              type="text"
+              placeholder={firstName}
+              name="firstName"
+              onChange={handelChange}
+              required
+            />
+            <input
+              type="text"
+              placeholder={lastName}
+              name="lastName"
+              onChange={handelChange}
+              required
+            />
+            <button className="edit-button" type="submit">
+              Save
+            </button>
+            <button className="edit-button" onClick={editNameButton}>
+              Cancel
+            </button>
           </form>
         </div>
       )}

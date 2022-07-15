@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Spinner, Alert } from 'react-bootstrap'
 import { userLogin } from '../../services/userLogin'
 import { useSelector, useDispatch } from 'react-redux'
-import { logingPending, logingSuccess, logingError } from './loginSlice'
+import {
+  logingPending,
+  logingSuccess,
+  logingError,
+  logingRemember,
+} from './loginSlice'
 
 /**
  * Component - SingIn
@@ -11,7 +16,9 @@ import { logingPending, logingSuccess, logingError } from './loginSlice'
  */
 
 function SingIn() {
-  const { isLoading, error } = useSelector((state) => state.login)
+  const { isLoading, isAuth, error, isRemember } = useSelector(
+    (state) => state.login
+  )
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const [credientials, setCredientials] = useState({
@@ -29,12 +36,20 @@ function SingIn() {
 
   async function handelSubmit(e) {
     e.preventDefault()
+    //UserLogin(credientials)
+
     dispatch(logingPending())
     try {
       const isAuth = await userLogin(credientials)
-
-      if (isAuth.status === 400) {
+      console.log(isAuth)
+      if (isAuth.status === 400 || isAuth.status === 500) {
         return dispatch(logingError(isAuth.message))
+      }
+
+      if (isRemember) {
+        localStorage.setItem('token', isAuth.body.token)
+      } else {
+        localStorage.removeItem('token')
       }
 
       dispatch(logingSuccess())
@@ -43,7 +58,10 @@ function SingIn() {
       dispatch(logingError(error.response.data.message))
     }
   }
-
+  /*
+  const currentEmail = localStorage.getItem('email')
+  const currentPassword = localStorage.getItem('password')
+*/
   return (
     <>
       <main className="main bg-dark">
@@ -58,6 +76,7 @@ function SingIn() {
                 type="text"
                 id="username"
                 name="email"
+                //{/*value={currentEmail ? currentEmail : ''} */}
                 onChange={handelChange}
               />
             </div>
@@ -67,11 +86,18 @@ function SingIn() {
                 type="password"
                 id="password"
                 name="password"
+                //{/*value={currentPassword ? currentPassword : ''}*/}
                 onChange={handelChange}
               />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input
+                type="checkbox"
+                id="remember-me"
+                name="remember-me"
+                defaultChecked={isRemember}
+                onChange={() => dispatch(logingRemember(!isRemember))}
+              />
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <Button type="submit" variant="success" className="sign-in-button">

@@ -56,6 +56,10 @@ body {
   margin-right: 0.5rem;
 }
 
+.main-nav-item i{
+  margin-right: 0.5rem;
+}
+
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -68,6 +72,16 @@ body {
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+.main-nav-link{
+  padding-right: 1rem;
+  text-decoration: none;
+}
+
+.main-nav-link i {
+  padding-right: 0.5rem;
+  
 }
 
 .hero {
@@ -126,6 +140,15 @@ body {
 .features {
   display: flex;
   flex-direction: column;
+}
+
+.editNameContent{
+  display: flex;
+  justify-content: center;
+}
+
+.edit-button {
+   margin-left: 0.5rem;
 }
 
 @media (min-width: 920px) {

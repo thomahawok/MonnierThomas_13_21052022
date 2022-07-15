@@ -19,16 +19,20 @@ const profileSlice = createSlice({
       state.firstName = action.payload
       state.error = ''
     },
-
     profileLastName: (state, action) => {
       state.isLoading = false
       state.lastName = action.payload
       state.error = ''
     },
-
     profileError: (state, action) => {
       state.isLoading = false
       state.error = action.payload
+    },
+    profileOut: (state) => {
+      state.isLoading = false
+      state.firstName = ''
+      state.lastName = ''
+      state.error = ''
     },
   },
 })
@@ -38,5 +42,6 @@ export const {
   profileFirstName,
   profileLastName,
   profileError,
+  profileOut,
 } = actions
 export default reducer
