@@ -1,6 +1,4 @@
-//@ts-check
 import React from 'react'
-
 import { userDatas } from '../../services/userDatas'
 import { useDispatch, useSelector } from 'react-redux'
 import { profileFirstName, profileLastName, profileError } from './profileSlice'

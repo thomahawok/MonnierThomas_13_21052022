@@ -16,9 +16,7 @@ import {
  */
 
 function SingIn() {
-  const { isLoading, isAuth, error, isRemember } = useSelector(
-    (state) => state.login
-  )
+  const { isLoading, error, isRemember } = useSelector((state) => state.login)
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const [credientials, setCredientials] = useState({

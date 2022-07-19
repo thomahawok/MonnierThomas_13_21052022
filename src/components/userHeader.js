@@ -75,26 +75,32 @@ export default function UserHeader() {
         <div className="header">
           <h1>Welcome back</h1>
           <form className="editNameContent" onSubmit={submitHandler}>
-            <input
-              type="text"
-              placeholder={firstName}
-              name="firstName"
-              onChange={handelChange}
-              required
-            />
-            <input
-              type="text"
-              placeholder={lastName}
-              name="lastName"
-              onChange={handelChange}
-              required
-            />
-            <button className="edit-button" type="submit">
-              Save
-            </button>
-            <button className="edit-button" onClick={editNameButton}>
-              Cancel
-            </button>
+            <div className="headerUserContentSave">
+              <input
+                className="InputfirstName"
+                type="text"
+                placeholder={firstName}
+                name="firstName"
+                onChange={handelChange}
+                required
+              />
+              <button className="edit-button" type="submit">
+                Save
+              </button>
+            </div>
+            <div className="headerUserContentCancel">
+              <input
+                className="inputLastName"
+                type="text"
+                placeholder={lastName}
+                name="lastName"
+                onChange={handelChange}
+                required
+              />
+              <button className="edit-button" onClick={editNameButton}>
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       )}
