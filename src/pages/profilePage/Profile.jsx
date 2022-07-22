@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { profileFirstName, profileLastName, profileError } from './profileSlice'
 import UserHeader from '../../components/userHeader'
 import ProfileAccounts from '../../components/ProfileAccounts'
+import axios from 'axios'
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
 
 /**
  * Component - User

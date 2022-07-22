@@ -1,3 +1,4 @@
+/*
 import { URL_PROFILE } from '../config'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -25,3 +26,4 @@ async function userDatas() {
     throw new Error(error)
   }
 }
+*/

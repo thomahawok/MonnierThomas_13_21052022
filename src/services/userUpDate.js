@@ -11,6 +11,7 @@ export async function userUpDate(userFirstLastName) {
 
       resolve(res.data)
     } catch (error) {
+      console.log('error userUpDate')
       console.log(error)
       reject(error)
     }
