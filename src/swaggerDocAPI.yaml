@@ -1,4 +1,3 @@
-
 swagger: '2.0'
 info:
   title: Bank Argent API documentation
@@ -257,7 +256,7 @@ paths:
       tags:
       - User Transactions
       summary: Delete an existing transaction (category)
-      description: API for updating a transaction's category
+      description: API for deleting a transaction's category
       consumes:
       - application/json
       produces:
@@ -279,10 +278,10 @@ paths:
         required: true
         type: integer
       responses:
-        '200':
+        '204':
           description: Transaction delete successully
           schema:
-            $ref: '#/definitions/Transactions'
+            $ref: '#/definitions/TransactionsDeleteCategory'
         '400':
           description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
         '500':
@@ -328,7 +327,40 @@ paths:
           description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
         '500':
           description: Internal Server Error
-  
+    delete:
+      tags:
+      - User Transactions
+      summary: Delete an existing transaction (notes)
+      description: API for deleting a transaction's notes
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: Authorization
+        description: Attach Bearer JWT token
+        type: string
+        required: true
+      - in: path
+        name: accountId
+        description: User's account ID
+        type: integer
+        required: true
+      - in: path
+        name: transactionsId
+        description: Transaction's ID
+        required: true
+        type: integer
+      responses:
+        '204':
+          description: Transaction delete successully
+          schema:
+            $ref: '#/definitions/TransactionsDelete'
+        '400':
+          description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
+        '500':
+          description: Internal Server Error 
     
 securityDefinitions:
   Bearer:
@@ -458,8 +490,10 @@ definitions:
   TransactionDetails:
     type: object
     properties:
+      id:
+        type: integer
+        description: transaction ID
       transactionType:
-        
         type: string
         description: transaction type
       category:
@@ -478,3 +512,59 @@ definitions:
     properties:
       notes:
         type: string
+  TransactionsDeleteCategory:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+        example: Transactions retrieved successfully
+      body:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionDetailsDeleteCategory'
+  TransactionDetailsDeleteCategory:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: transaction ID
+      transactionType:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        x-nullable: true
+        description: transaction category
+      note:
+        type: string
+        description: user's notes for transaction
+  TransactionsDeleteNotes:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+        example: Transactions retrieved successfully
+      body:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionDetailsDeleteNote'
+  TransactionDetailsDeleteNote:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: transaction ID
+      transactionType:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+      note:
+        type: string
+        x-nullable: true
+        description: user's notes for transaction
