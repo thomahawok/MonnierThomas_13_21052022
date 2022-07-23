@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "better-docs": "^2.7.2",
     "bootstrap": "^5.2.0-beta1",
     "immer": "^9.0.15",
     "jwt-decode": "^3.1.2",
@@ -27,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "doc": "jsdoc -c ./jsdoc.json"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "jsdoc": "^3.6.11",
     "prettier": "^2.7.1"
   }
 }
