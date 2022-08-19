@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Spinner, Alert } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 import { userLogin } from '../../services/userLogin'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -34,15 +34,10 @@ function SingIn() {
 
   async function handelSubmit(e) {
     e.preventDefault()
-    //UserLogin(credientials)
 
     dispatch(logingPending())
     try {
       const isAuth = await userLogin(credientials)
-      console.log(isAuth)
-      if (isAuth.status === 400 || isAuth.status === 500) {
-        return dispatch(logingError(isAuth.message))
-      }
 
       if (isRemember) {
         localStorage.setItem('token', isAuth.body.token)
@@ -53,13 +48,11 @@ function SingIn() {
       dispatch(logingSuccess())
       navigate('/profilePage/Profile')
     } catch (error) {
+      console.log(error)
       dispatch(logingError(error.response.data.message))
     }
   }
-  /*
-  const currentEmail = localStorage.getItem('email')
-  const currentPassword = localStorage.getItem('password')
-*/
+
   return (
     <>
       <main className="main bg-dark">
@@ -74,7 +67,6 @@ function SingIn() {
                 type="text"
                 id="username"
                 name="email"
-                //{/*value={currentEmail ? currentEmail : ''} */}
                 onChange={handelChange}
               />
             </div>
@@ -84,7 +76,6 @@ function SingIn() {
                 type="password"
                 id="password"
                 name="password"
-                //{/*value={currentPassword ? currentPassword : ''}*/}
                 onChange={handelChange}
               />
             </div>
@@ -101,7 +92,11 @@ function SingIn() {
             <Button type="submit" variant="success" className="sign-in-button">
               Sign In
             </Button>
-            {isLoading && <Spinner animation="border" variant="success" />}
+            {isLoading && (
+              <div className="spinner-border text-success mt-1" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            )}
           </form>
         </section>
       </main>

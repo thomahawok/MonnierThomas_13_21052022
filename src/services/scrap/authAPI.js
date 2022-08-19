@@ -1,14 +1,6 @@
-import { URL_LOGIN } from '../config'
+import { URL_LOGIN } from '../../config'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-
-/**
- * @description - This function is used to login a user
- * @param {string} email - The user email
- * @param {string} password - The user password
- * @returns {Promise<any>} - The promise with the user data
- * @throws {Error} - If the user is not found or the password is incorrect
- */
 
 export async function login(credientials) {
   try {

@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * Component - Footer
  * @returns {React.ReactElement} JSX.Element - Footer component

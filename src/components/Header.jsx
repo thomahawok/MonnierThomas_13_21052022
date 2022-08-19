@@ -9,7 +9,6 @@ import LogIn from './logIn'
  * Component - Header
  * @returns {React.ReactElement} JSX.Element - header component
  */
-
 function Header() {
   return (
     <header>

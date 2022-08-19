@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+<!-- ABOUT THE PROJECT -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Le projet
 
-## Available Scripts
+[![Home][product-screenshot]](https://)
 
-In the project directory, you can run:
+Le projet concerne une nouvelle banque qui démarre, Argent Bank, qui essaie de percer dans le secteur et qui a besoin d'aide pour mettre en place son application. Nous avons obtenu un contrat en deux parties qui se décompose en plusieurs phases :
 
-### `npm start`
+- Phase 1 : Authentification des utilisateurs - Création d'une application web permettant aux clients de se connecter et de gérer leurs comptes et leur profil.
+- Phase 2 : Transactions - Il s’agirait de spécifier les endpoints d’API nécessaires pour une éventuelle deuxième mission une fois que nous aurons terminé la première.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Développé avec :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [React](https://fr.reactjs.org/)
+- [React - Router](https://reactrouter.com/)
+- [Babel/core](https://babeljs.io/)
+- [SASS](https://sass-lang.com/)
+- [ESLint](https://eslint.org/)
+- [Axios](https://axios-http.com/)
+- [MongoDB](https://www.mongodb.com/cloud/atlas/lp/try2?utm_content=rlsavisitor&utm_source=google&utm_campaign=gs_emea_rlsamulti_search_core_brand_atlas_desktop_rlsa&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=14412646455&gclid=CjwKCAjwtfqKBhBoEiwAZuesiJAWmTboVWna0ekghpt9L1rPlPiyEdL0m51xPw-E0e1yUS6veOBNaxoC978QAvD_BwE)
+- [redux-toolkit](https://redux-toolkit.js.org/)
+- [Swagger](https://swagger.io/)
 
-### `npm test`
+<!-- GETTING STARTED -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Install and launch back-end
 
-### `npm run build`
+Check Node and MongoDB version:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`node --version`
+`mongo --version`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone the repository "Project 10 Bank-API - Backend":
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API`
 
-### `npm run eject`
+Then install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm install`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Then launch back-end (on port 3001):
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`npm run dev:server`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Finally populate database in another terminal:
 
-## Learn More
+`npm run populate-db`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Install and launch front-end
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone this repository:
 
-### Code Splitting
+`git clone git@github.com:audreydiez/AudreyDiez_13_07092021.git`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Then install dependencies:
 
-### Analyzing the Bundle Size
+`npm install`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Launch front-end on port 3000, automatically displayed on your default browser at `http://localhost:3000/`:
 
-### Making a Progressive Web App
+`npm run start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- URL for swagger API phase 2 :
+- `http://localhost:3000/api-docs`
 
-### Advanced Configuration
+<!-- CONTACT -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contact
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thomas MONNIER - [@Linkedin](https://www.linkedin.com/in/thomas-monnier-31052616b/) - thomashawok0@gmail.com

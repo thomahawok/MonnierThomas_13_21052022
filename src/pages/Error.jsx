@@ -1,5 +1,3 @@
-//@ts-check
-
 /**
  * ERROR PAGE
  * @returns {React.ReactElement} JSX.Element error page

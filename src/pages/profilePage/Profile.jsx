@@ -11,7 +11,7 @@ if (token) {
 }
 
 /**
- * Component - User
+ * Component - User ptofile
  * @returns {React.ReactElement} JSX.Element - User component
  */
 
@@ -22,7 +22,6 @@ function Profile() {
   userDatas()
     .then((data) => {
       dispatch(profileFirstName(data.body.firstName))
-
       dispatch(profileLastName(data.body.lastName))
 
       if (isRemember) {

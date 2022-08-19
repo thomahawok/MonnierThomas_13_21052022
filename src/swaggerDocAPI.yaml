@@ -356,7 +356,7 @@ paths:
         '204':
           description: Transaction delete successully
           schema:
-            $ref: '#/definitions/TransactionsDelete'
+            $ref: '#/definitions/TransactionsDeleteCategory'
         '400':
           description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
         '500':

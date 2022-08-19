@@ -17,7 +17,7 @@ function LogIn() {
     if (localStorageFirstName) {
       dispatch(profileFirstName(localStorageFirstName))
     }
-  }, [])
+  }, [dispatch, localStorageFirstName])
 
   return (
     <>

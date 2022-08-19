@@ -1,5 +1,12 @@
 import axios from 'axios'
 import { URL_PROFILE } from '../config'
+/**
+ * Function to get user datas first ant last name
+ * @param {Object} userFirstLastName
+ * @param {String} userFirstLastName.firstName user's first name
+ * @param {String} userFirstLastName.lastName user's last name
+ * @returns {Promise<any>} Promise with user datas
+ */
 
 export async function userUpDate(userFirstLastName) {
   console.log(userFirstLastName)

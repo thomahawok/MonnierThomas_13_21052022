@@ -1,4 +1,3 @@
-//import './UserHeader.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -9,18 +8,23 @@ import {
 } from '../pages/profilePage/profileSlice'
 import { userUpDate } from '../services/userUpDate'
 
-export default function UserHeader() {
+/**
+ * Component user header
+ * @returns {React.ReactElement} JSX.Element - userHeader component
+ */
+
+function UserHeader() {
   const dispatch = useDispatch()
   const localStorageFirstName = localStorage.getItem('firstName')
   const localStorageLastName = localStorage.getItem('lastName')
-  //const { firstName, lastName } = useSelector((state) => state.profile)
   const { firstName, lastName } = useSelector((state) => state.profile)
+
   useEffect(() => {
     if (localStorageFirstName && localStorageLastName) {
       dispatch(profileFirstName(localStorageFirstName))
       dispatch(profileLastName(localStorageLastName))
     }
-  }, [])
+  }, [dispatch, localStorageFirstName, localStorageLastName])
 
   const [editButton, setEditButton] = useState('')
   const [userFirstLastName, setUserFirstLastName] = useState({
@@ -46,10 +50,6 @@ export default function UserHeader() {
     dispatch(profilePending())
     try {
       const newUser = await userUpDate(userFirstLastName)
-      console.log(newUser)
-      if (newUser.status === 400 || newUser.status === 500) {
-        return dispatch(profileError(newUser.message))
-      }
       dispatch(profileFirstName(newUser.body.firstName))
       dispatch(profileLastName(newUser.body.lastName))
       setEditButton((current) => !current)
@@ -107,3 +107,4 @@ export default function UserHeader() {
     </>
   )
 }
+export default UserHeader
